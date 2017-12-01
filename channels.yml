@@ -3,7 +3,7 @@ provider:
   gateway: http://localhost:8080
 
 functions:
-  ubulog-channels-function:
+  ubulog-channels:
     lang: node
     handler: ./channels
     image: ubulog/channels-function
