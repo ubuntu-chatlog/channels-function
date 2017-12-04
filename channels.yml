@@ -7,3 +7,5 @@ functions:
     lang: node
     handler: ./channels
     image: ubulog/channels-function
+    environment_file:
+      - es_endpoint.yml

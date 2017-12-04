@@ -1,10 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var elasticsearch_1 = require("elasticsearch");
 var es = new elasticsearch_1.Client({
     host: process.env.ELASTICSEARCH_URL,
 });
-exports.handler = function (event, context, callback) {
+module.exports = (content, callback) => {
     es.search({
         body: {
             "size": 0,
@@ -20,17 +19,9 @@ exports.handler = function (event, context, callback) {
                 },
             },
         },
-    }).then(function (r) {
-        var data = r.aggregations.channels.buckets
-            .map(function (v, idx) { return v.key; })
-            .sort();
-        var response = {
-            statusCode: 200,
-            headers: {},
-            body: JSON.stringify(data),
-        };
-        console.log(response);
-        callback && callback(undefined, response);
-    }).catch(function (e) { callback && callback(e, undefined); });
+    })
+    .then(r => { callback(undefined,
+            r.aggregations.channels.buckets.map(v => v.key).sort()); })
+    .catch(e => { callback(e, undefined) })
 };
 

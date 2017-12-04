@@ -1,0 +1,2 @@
+environment:
+  ELASTICSEARCH_URL: http://ubulog_es:9200
